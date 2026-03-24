@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>文脉基因 - 历代舆图书体复合层级Donut</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        :root {
+            --ancient-yellow: #f2e6c9;
+            --vermilion: #962218;
+            --gold: #b3935d;
+            --ink: #1a1a1a;
+        }
+        body { 
+            background: var(--ancient-yellow); 
+            margin: 0; 
+            font-family: "STKaiti", "STSong", serif; 
+            overflow: hidden; 
+        }
+        .nav-back { 
+            position: absolute; 
+            top: 20px; 
+            left: 20px; 
+            z-index: 100; 
+        }
+        .nav-back a { 
+            color: var(--vermilion); 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 18px;
+        }
+        
+        .header-section {
+            text-align: center;
+            padding-top: 25px; 
+            position: relative;
+            z-index: 10;
+        }
+        h2 { 
+            color: var(--vermilion); 
+            border-bottom: 2px solid var(--vermilion); 
+            display: inline-block; 
+            padding-bottom: 5px; 
+            margin: 0;
+            font-size: 26px;
+            letter-spacing: 2px;
+        }
+
+        #main { 
+            width: 100%; 
+            height: 90vh; 
+            margin-top: -30px;
+            z-index: 5;
+        }
+
+        /* 装饰性边框文本 */
+        .decoration-text {
+            position: absolute;
+            width: 260px;
+            padding: 15px;
+            border: 1px solid var(--gold);
+            background: rgba(255,255,255,0.1);
+            color: var(--ink);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .left-box { left: 40px; bottom: 60px; border-left: 4px solid var(--vermilion); }
+        .right-box { right: 40px; bottom: 60px; text-align: right; border-right: 4px solid var(--vermilion); }
+    </style>
+</head>
+<body>
+    <div class="nav-back"><a href="visualization.html">← 返回展厅</a></div>
+    
+    <div class="header-section">
+        <h2>舆图类别与书体复合基因图谱</h2>
+    </div>
+
+    <div id="main"></div>
+
+    <script>
+        var chart = echarts.init(document.getElementById('main'));
+        
+        // 内圈分类数据
+        var inner_data = [
+            { value: 434, name: '区域地图' },
+            { value: 124, name: '城市地图' },
+            { value: 30, name: '历史沿革' },
+            { value: 18, name: '全国总图' },
+            { value: 21, name: '其他类型' } // 包含军事、水利、航海、风水等
+        ];
+
+        // 外圈书体数据 (必须按照内圈顺序排列以对应)
+        var outer_data = [
+            // 对应 区域地图
+            { value: 311, name: '楷书', groupId: '区域地图', itemStyle: {color: '#962218'} }, 
+            { value: 112, name: '未标注', groupId: '区域地图', itemStyle: {color: '#b3935d', opacity:0.6} },
+            { value: 11, name: '隶/篆/行', groupId: '区域地图', itemStyle: {color: '#d1c1a5'} },
+            // 对应 城市地图
+            { value: 105, name: '楷书', groupId: '城市地图', itemStyle: {color: '#a65d56'} }, 
+            { value: 19, name: '其他', groupId: '城市地图', itemStyle: {color: '#c29d66', opacity:0.7} },
+            // 对应 历史沿革
+            { value: 29, name: '楷书', groupId: '历史沿革', itemStyle: {color: '#82312d'} }, 
+            { value: 1, name: '晋隶', groupId: '历史沿革', itemStyle: {color: '#e0c9b0'} },
+            // 对应 全国总图
+            { value: 15, name: '楷书', groupId: '全国总图', itemStyle: {color: '#5c1611'} }, 
+            { value: 3, name: '其他', groupId: '全国总图', itemStyle: {color: '#1a1a1a', opacity:0.5} },
+            // 对应 其他类型
+            { value: 14, name: '楷书', groupId: '其他类型', itemStyle: {color: '#962218', opacity:0.8} },
+            { value: 7, name: '其他', groupId: '其他类型', itemStyle: {color: '#b3935d', opacity:0.4} }
+        ];
+
+        var option = {
+            backgroundColor: 'transparent',
+            tooltip: {
+                trigger: 'item',
+                formatter: "{b}: {c}幅 ({d}%)",
+                backgroundColor: 'rgba(242, 230, 201, 0.9)',
+                borderColor: '#b3935d'
+            },
+            legend: {
+                data: ['楷书', '未标注', '隶/篆/行', '晋隶', '其他'],
+                orient: 'vertical',
+                right: '32%',
+                top: '18%',
+                icon: 'circle',
+                itemWidth: 12,
+                itemHeight: 12,
+                itemGap: 10,
+                textStyle: {
+                    fontFamily: 'STKaiti',
+                    fontSize: 14,
+                    color: '#1a1a1a'
+                }
+            },
+            // 中心的印章图形
+            graphic: [{
+                type: 'group',
+                left: 'center',
+                top: 'center',
+                children: [
+                    {
+                        type: 'rect',
+                        z: 100,
+                        left: 'center',
+                        top: 'center',
+                        shape: { width: 60, height: 60 },
+                        style: { fill: 'transparent', stroke: '#962218', lineWidth: 2 }
+                    },
+                    {
+                        type: 'text',
+                        z: 100,
+                        left: 'center',
+                        top: 'center',
+                        style: {
+                            text: '文脉\n基因',
+                            font: 'bold 18px STKaiti',
+                            fill: '#962218',
+                            textAlign: 'center'
+                        }
+                    }
+                ]
+            }],
+            series: [
+                {
+                    name: '地图分类',
+                    type: 'pie',
+                    radius: ['15%', '35%'],
+                    center: ['50%', '50%'],
+                    itemStyle: {
+                        borderRadius: 5,
+                        borderColor: '#f2e6c9',
+                        borderWidth: 2,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            { offset: 0, color: '#d1c1a5' },
+                            { offset: 1, color: '#b3935d' }
+                        ])
+                    },
+                    label: {
+                        position: 'inner',
+                        rotate: 'tangential',
+                        formatter: '{b}\n{c}幅',
+                        color: '#1a1a1a',
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        fontFamily: 'STKaiti'
+                    },
+                    emphasis: {
+                        focus: 'descendant', // 移入分类，高亮对应的书体
+                        itemStyle: { shadowBlur: 20, shadowColor: 'rgba(0,0,0,0.3)' }
+                    },
+                    data: inner_data
+                },
+                {
+                    name: '书体构成',
+                    type: 'pie',
+                    radius: ['42%', '60%'],
+                    center: ['50%', '50%'],
+                    padAngle: 2, // 扇区间隔
+                    itemStyle: { borderRadius: 8 },
+                    label: {
+                        position: 'outside',
+                        formatter: '{b|{b}}\n{hr|}\n{c|{c}幅}',
+                        rich: {
+                            b: { color: '#1a1a1a', fontSize: 14, align: 'center', padding: [0, 0, 5, 0] },
+                            hr: { borderColor: '#b3935d', width: '100%', borderWidth: 0.5, height: 0 },
+                            c: { color: '#962218', fontSize: 12, align: 'center', padding: [5, 0, 0, 0] }
+                        }
+                    },
+                    labelLine: {
+                        length: 20,
+                        length2: 15,
+                        lineStyle: { color: '#b3935d' }
+                    },
+                    data: outer_data
+                }
+            ]
+        };
+
+        chart.setOption(option);
+        window.onresize = function() { chart.resize(); };
+    </script>
+</body>
+</html>
