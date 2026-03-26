@@ -6,10 +6,10 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
         :root {
-            --ancient-yellow: #f2e6c9;
-            --vermilion: #962218;
+            --ancient-yellow: #EDE0CA;
+            --vermilion: #62B8B8;
             --gold: #b3935d;
-            --ink: #1a1a1a;
+            --ink: #5D5149;
         }
         body { 
             background: var(--ancient-yellow); 
@@ -94,21 +94,21 @@
         // 外圈书体数据 (必须按照内圈顺序排列以对应)
         var outer_data = [
             // 对应 区域地图
-            { value: 311, name: '楷书', groupId: '区域地图', itemStyle: {color: '#962218'} }, 
-            { value: 112, name: '未标注', groupId: '区域地图', itemStyle: {color: '#b3935d', opacity:0.6} },
-            { value: 11, name: '隶/篆/行', groupId: '区域地图', itemStyle: {color: '#d1c1a5'} },
+            { value: 311, name: '楷书', groupId: '区域地图', itemStyle: {color: '#62B8B8'} }, 
+            { value: 112, name: '未标注', groupId: '区域地图', itemStyle: {color: '#a8aabc', opacity:0.6} },
+            { value: 11, name: '隶/篆/行', groupId: '区域地图', itemStyle: {color: '#a0a8d9'} },
             // 对应 城市地图
-            { value: 105, name: '楷书', groupId: '城市地图', itemStyle: {color: '#a65d56'} }, 
-            { value: 19, name: '其他', groupId: '城市地图', itemStyle: {color: '#c29d66', opacity:0.7} },
+            { value: 105, name: '楷书', groupId: '城市地图', itemStyle: {color: '#324b4b'} , opacity:0.3}, 
+            { value: 19, name: '其他', groupId: '城市地图', itemStyle: {color: '#268383', opacity:0.7} },
             // 对应 历史沿革
-            { value: 29, name: '楷书', groupId: '历史沿革', itemStyle: {color: '#82312d'} }, 
+            { value: 29, name: '楷书', groupId: '历史沿革', itemStyle: {color: '#95b1b0'} }, 
             { value: 1, name: '晋隶', groupId: '历史沿革', itemStyle: {color: '#e0c9b0'} },
             // 对应 全国总图
-            { value: 15, name: '楷书', groupId: '全国总图', itemStyle: {color: '#5c1611'} }, 
+            { value: 15, name: '楷书', groupId: '全国总图', itemStyle: {color: '#3a9293'} }, 
             { value: 3, name: '其他', groupId: '全国总图', itemStyle: {color: '#1a1a1a', opacity:0.5} },
             // 对应 其他类型
-            { value: 14, name: '楷书', groupId: '其他类型', itemStyle: {color: '#962218', opacity:0.8} },
-            { value: 7, name: '其他', groupId: '其他类型', itemStyle: {color: '#b3935d', opacity:0.4} }
+            { value: 14, name: '楷书', groupId: '其他类型', itemStyle: {color: '#62B8B8', opacity:0.8} },
+            { value: 7, name: '其他', groupId: '其他类型', itemStyle: {color: '#a8aabc', opacity:0.4} }
         ];
 
         var option = {
@@ -146,7 +146,7 @@
                         left: 'center',
                         top: 'center',
                         shape: { width: 60, height: 60 },
-                        style: { fill: 'transparent', stroke: '#962218', lineWidth: 2 }
+                        style: { fill: 'transparent', stroke: '#145D5E', lineWidth: 2 }
                     },
                     {
                         type: 'text',
@@ -156,7 +156,7 @@
                         style: {
                             text: '文脉\n基因',
                             font: 'bold 18px STKaiti',
-                            fill: '#962218',
+                            fill: '#145D5E',
                             textAlign: 'center'
                         }
                     }
@@ -173,8 +173,8 @@
                         borderColor: '#f2e6c9',
                         borderWidth: 2,
                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                            { offset: 0, color: '#d1c1a5' },
-                            { offset: 1, color: '#b3935d' }
+                            { offset: 0, color: '#95b1b0' },
+                            { offset: 1, color: '#62b8b8' }
                         ])
                     },
                     label: {
@@ -205,7 +205,7 @@
                         rich: {
                             b: { color: '#1a1a1a', fontSize: 14, align: 'center', padding: [0, 0, 5, 0] },
                             hr: { borderColor: '#b3935d', width: '100%', borderWidth: 0.5, height: 0 },
-                            c: { color: '#962218', fontSize: 12, align: 'center', padding: [5, 0, 0, 0] }
+                            c: { color: '#62B8B8', fontSize: 12, align: 'center', padding: [5, 0, 0, 0] }
                         }
                     },
                     labelLine: {
